@@ -1,0 +1,27 @@
+---
+- name: Deploy and Restart Tomcat
+  hosts: DevOps_Assignment
+  become: true
+
+  tasks:
+    - name: Copy the new WAR file
+      copy:
+        src: /path/to/your/new/application.war
+        dest: /path/to/tomcat/webapps/your_application.war
+      notify: Restart Tomcat
+
+    - name: Check Process up and running
+      shell: ps aux | grep tomcat | grep -v grep
+      register: tomcat_process
+      ignore_errors: true
+
+    - name: Print top 10 running processes
+      command: ps aux --sort=-%cpu | head -n 11
+      register: top_processes
+
+  handlers:
+    - name: Restart Tomcat
+      command: /path/to/tomcat/bin/shutdown.sh && /path/to/tomcat/bin/startup.sh
+      async: 600
+      poll: 0
+      ignore_errors: true
