@@ -172,3 +172,6 @@ resource "aws_lb_listener" "listner" {
 output "loadbalancerdns" {
   value = aws_lb.myalb.dns_name
 }
+
+
+#At least two subnets in two different Availability Zones must be specified and needs two Servers atleast to perform alb.
