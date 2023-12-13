@@ -1,0 +1,65 @@
+#playbook.yml
+
+# mysql_installation
+---
+- name: Install MySQL
+  hosts: DevOps_Assignment
+  
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+
+    - name: Install MySQL Server
+      apt:
+        name: mysql-server
+        state: present
+
+# tomcat_installation
+
+- name: Install Tomcat
+  hosts: DevOps_Assignment
+
+  tasks:
+    - name: Install tomcat
+      apt:
+        name: tomcat
+        state: present
+        ports: 8080
+
+# memcached_installation
+
+- name: Install Memcached
+  hosts: DevOps_Assignment
+
+  tasks:
+    - name: Install Memcached
+      apt:
+        name: memcached
+        state: present
+    
+
+# redis_installation
+
+- name: Install Redis
+  hosts: DevOps_Assignment
+
+  tasks:
+    - name: Install Redis
+      apt:
+        name: redis-server
+        state: present
+
+# deploy_war
+
+- name: Deploy Sample WAR File
+  hosts: DevOps_Assignment
+
+  tasks:
+    # Copy the WAR file to Tomcat webapps directory
+    - name: Copy WAR file to Tomcat
+      copy:
+        src: "/path/to/sample.war"
+        dest: "/opt/apache-tomcat-9.0.52/webapps/"
+
+...
